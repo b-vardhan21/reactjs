@@ -1,5 +1,5 @@
 # What is React?
-Open source library for building user interfaces
-Focus on UI
-Rich Ecosystem
-Doesn't focus on routing, HTTP requests
+1. Open source library for building user interfaces
+2. Focus on UI
+3. Rich Ecosystem
+4. Doesn't focus on routing, HTTP requests
