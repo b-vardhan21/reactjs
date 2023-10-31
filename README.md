@@ -15,3 +15,10 @@ Traditional website can break down into header, footer, sidenav, main content
 **Describes the UI State:** In React, you declare how the user interface should look based on the current state of your application. You define what the UI should display when certain conditions are met, but you don't explicitly specify how to transition from one state to another. This is in contrast to imperative programming, where you specify step-by-step instructions for changing the UI.
 
 **Virtual DOM:** React uses a virtual representation of the DOM (Virtual DOM) to efficiently update the actual DOM. When your component's state changes, you declare how the UI should look in response to that change, and React takes care of updating the real DOM as efficiently as possible. You don't have to manipulate the DOM directly, which is an imperative approach.
+
+# To create a React app
+`npx create-react-app my-react-app`  
+This will create a new React app in the **my-react-app** directory.  
+Navigate to the **my-react-app** directory and run the following command to start the development server:
+`npm start`  
+This will start the development server on port 3000. You can view your React app at http://localhost:3000 in your web browser.  If we are using npm to create react app we have to install react app globally so that's why we are using npx.
