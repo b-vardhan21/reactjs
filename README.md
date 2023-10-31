@@ -34,9 +34,15 @@ Component code -> Javascript File
 
 # Component Types
 
-**Stateless Functional Component** 
+**Functional Component** 
 
 A stateless functional component in React is a component that does not have any state. This means that it does not track any changes to its own data, and it does not have a lifecycle. Functional Components are bascially Javascript functions they return HTML which describes UI.
+**Update:**
+In React, functional components can handle state as well as class components, thanks to React Hooks. Prior to the introduction of Hooks in React 16.8, functional components were stateless and could not handle state. However, with the introduction of Hooks, functional components can now manage state using the useState Hook.
+
+Before Hooks, only class components could hold and manage state by using the this.state object. However, functional components were mainly used for presenting UI based on the provided props.
+
+Now, with Hooks, the useState Hook specifically allows functional components to hold and manage state in a more concise and readable manner. This means that you can define and update state variables within functional components. 
 ```javascript
 function Hello(props) {
   const { name } = props;
@@ -76,6 +82,50 @@ class Counter extends React.Component {
   }
 }
 ```
+
+# export
+
+The export statement is used to export functions, objects, variables, or components from a file, making them available to be imported in other modules.
+```javascript
+// Exporting a single default component or function
+export default MyComponent;
+
+// Exporting multiple named components or functions
+export { someFunction, someVariable };
+```
+
+# JSX
+
+Javascript XML(JSX) - Extension to the Javascript language syntax.
+Write xml like code for elements and components.
+JSX tags have a tag name, attributes and children.
+JSX is not a necessary to write react applications.
+JSX makes your react code simpler and elegant.
+JSX ultimately transpiles to pure javascript which is understood by browsers.
+
+Class - className
+for - htmlFor
+camelCase property naming convention
+onclick - onClick
+tabindex - tabIndex
+
+# Props
+
+props is an object that contains the attribute and the values which have passed from the parent component.  
+props are immutable.  
+
+# props vs state
+
+| props| state |
+|:------------ |:--------------:| 
+| props get passed to the component | State is managed within the component | 
+| props are immutable(The parents are own the props cannot be changed by children)  | State is managed within the component hence the component has full control to change the state | 
+| props - functional components | useState Hook - functional components | 
+| this.props - class components | this.state - class components | 
+
+
+
+
 
 
 
