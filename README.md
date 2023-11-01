@@ -124,7 +124,224 @@ props are immutable.
 | this.props - class components | this.state - class components | 
 
 
+create state object and intilize it, usually done in class constructor. With in constructor we call super(), this is req because we extend react component class and call has made to base class constructor and then we create our state object[this.state = {} ].  
+Now intilize a property
+```javascript
+this.state = {
+    message: 'welcome visitior'
+}
+```
+Now bind this state value in render function same as props
+```javascript
+render(){
+    return(
+        <h1>{this.state.message}</h1>
+    )
+}
+```
+Now are using state to render message we now have the ability to change the message
+Note: state is a reserved keyword
 
+**We need to call setState() to alter the state of a class component**
+```javascript
+import React, { Component } from "react";
+
+class Message extends Component{
+
+    constructor(){
+        super();
+        this.state = {
+            message: 'Welcome Visitor'
+        }
+    };
+    changeMessage(){
+        this.setState({
+            message: 'Thank you for subscribing Vardhan'
+        })
+    }
+
+    render(){
+        return(
+            <div>
+                <h1>{this.state.message}</h1>
+                <button onClick={()=> this.changeMessage()}>Subscribe</button>
+            </div>
+        )
+    }
+
+
+}
+
+export default Message;
+```
+
+We should never modify the state directly, we have to use setState().  
+If we modify state directly react wont render the component.  
+setState() on the other hand will let react know it has to re-render the component.  
+Calls to setState is Asynchronous, in below example console.log called before the state is set. Many times in our application we want to execute some code only after the state has been updated, so to handle such a situation you can pass in a call back function(which is an arrow function) as the second parameter to setState()
+```javascript
+Increment(){
+        this.setState({
+            count: this.state.count + 1
+        })
+        console.log(this.state.count);
+        // this.state.count = this.state.count + 1;
+        // console.log(this.state.count);
+    }
+```
+
+```javascript
+Increment(){
+        this.setState({
+            count: this.state.count + 1
+        },()=>{
+            console.log('call back value', this.state.count)
+        })
+        console.log(this.state.count);//Syschronous call back statement
+        // this.state.count = this.state.count + 1;
+        // console.log(this.state.count);
+    }
+
+    ouput:-
+    count - 1 | console.log('call back value', this.state.count) - 1 | console.log(this.state.count) - 0
+```
+
+Note:- React will group multiple setState() calls into single update for better performance. So whenever you want to update the state based on previous state we need to pass function as an argument to setState() instead of passing in object.
+
+```javascript
+import React, {Component} from "react";
+
+class Counter extends Component{
+
+    constructor(){
+        super();
+        this.state = {
+            count: 0
+        }
+    }
+
+    Increment(){
+        this.setState((prevState) => ({
+            count : prevState.count + 1
+            
+        }))
+    }
+
+    IncrementFive(){
+        this.Increment();
+        this.Increment();
+        this.Increment();
+        this.Increment();
+        this.Increment();
+    }
+
+    render(){
+        return(
+            <div>
+                Count - {this.state.count} <br/>
+                <button onClick={()=> this.IncrementFive()}>Increase</button>
+            </div>
+        )
+    }
+}
+export default Counter;
+```
+
+# setState
+1. Always make use of setState and never modify the state directly
+2. Code has to be executed after the state has been updated? Place that code in the call back function which is the second argument to the setState method.
+3. When you have to update state based on the previous state value, pass in a function as an argument instead of the regular object.
+
+# Destructuring props and state
+
+Destructuring makes it possible to unpack values from arrays or properties from object to distinct variables 
+
+**Props in functional component**
+```javascript
+import React from "react";
+
+// function Greet(){
+//     return <h1>Good Morning vardhan</h1>
+// }
+
+const Greet = (props)=>{
+    const {name, heroName} = props
+    return(
+        <div>
+            <h1>Good Morning {name} you are {heroName}</h1>
+        </div>
+    );
+}
+
+export default Greet;
+```
+
+**Props in class component**
+```javascript
+import React, {Component} from "react";
+
+class Welcome extends Component{
+    render(){
+        const {name, heroName} = this.props
+        return(
+            <h1>Welcome {name} you are {heroName}</h1>
+        )
+    }
+
+}
+
+export default Welcome;
+```
+
+# Event Handling
+
+**Functional Components**
+```javascript
+import React, {Component} from "react";
+
+const FunctionClick = () => {
+
+    function clickHandler(){
+        console.log('Button Clicked');
+    }
+
+    return(
+        <div>
+            <button onClick = {clickHandler}>Click</button>
+            //Here we are passing clickHandler function as the event handler there are no paranthesis.
+            //If we have paranthesis clickHandler() then it becomes a function call. Here we want handler to 
+            //be function not function call. 
+            //clickHandler()  if we use this the output will be printed in console before clicking the button
+            //as this is function call
+        </div>
+    )
+
+}
+
+export default FunctionClick;
+```
+
+**Class Components**
+```javascript
+import React,{Component} from "react";
+
+class ClassClick extends Component{
+
+    clickHandler(){
+        console.log("Class Click Button")
+    }
+
+    render(){
+        return(
+            <div>
+                <button onClick={this.clickHandler}>Class Click Button</button>
+            </div>
+        )
+    }
+}
+
+export default ClassClick;
+```
 
 
 
