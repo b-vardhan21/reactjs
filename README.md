@@ -343,7 +343,246 @@ class ClassClick extends Component{
 export default ClassClick;
 ```
 
+# Binding Event Handlers
+
+Why we will bind event handlers in react because of the way 'this' keyword works in javascript
+
+bind() in render method
+```javascript
+import React, { Component } from 'react'
+
+export default class EventBind extends Component {
+    constructor(){
+        super();
+        this.state = {
+            message: 'hello'
+
+        }
+    }
+
+Message(){
+    this.setState({
+        message: 'hello world'
+    })
+    console.log(this)
+}
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <button onClick={this.Message.bind(this)}>Click</button>
+      </div>
+    )
+  }
+}
+
+```
+
+Arrow function in render method
+```javascript
+import React, { Component } from 'react'
+
+export default class EventBind extends Component {
+    constructor(){
+        super();
+        this.state = {
+            message: 'hello'
+
+        }
+    }
+
+Message(){
+    this.setState({
+        message: 'hello world'
+    })
+    console.log(this)
+}
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <button onClick={() => this.Message()}>Click</button>
+      </div>
+    )
+  }
+}
+
+```
+
+Binding the event handler in constructor. Binding happens in class constructor only once. best option
+```javascript
+import React, { Component } from 'react'
+
+export default class EventBind extends Component {
+    constructor(){
+        super();
+        this.state = {
+            message: 'hello'
+
+        }
+        this.Message = this.Message.bind(this) 
+    }
+
+Message(){
+    this.setState({
+        message: 'hello world'
+    })
+    console.log(this)
+}
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <button onClick={this.Message}>Click</button>
+      </div>
+    )
+  }
+}
+
+```
+
+Using class property as Arrow Function
+```javascript
+import React, { Component } from 'react'
+
+export default class EventBind extends Component {
+    constructor(){
+        super();
+        this.state = {
+            message: 'hello'
+
+        }
+        
+    }
+    Message = () => {
+        this.setState({
+            message: 'Good Bye'
+        })
+
+    }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <button onClick={this.Message}>Click</button>
+      </div>
+    )
+  }
+}
+
+```
 
 
+# Method as props
+
+Untill now we have seen how parent component pass props to its child component. Any data in parent component can pass as props to child components. 
+
+Now what if child component want to communicate to it's parent component.  
+we pass reference to a method as props to child component.  
+
+```javascript
+ParentComponent.js
+import React, { Component } from 'react'
+import ChildComponent from './ChildComponent'
+class ParentComponent extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         parentName: 'Parent'
+      }
+
+      this.greetParent = this.greetParent.bind(this)
+    }
+
+    greetParent(){
+        alert(`Hello ${this.state.parentName}`)
+
+    }
+    
+  render() {
+    return (
+      <div>
+        <ChildComponent greetHandler = {this.greetParent}/>
+        //here we are passing method as prop
+      </div>
+    )
+  }
+}
+
+export default ParentComponent
+```
+
+```javascript
+ChildComponent.js
+import React from 'react'
+
+function ChildComponent(props) {
+  return (
+    <div>
+      <button onClick={props.greetHandler}>Greet Parent</button>
+      //here we accessing method as prop object
+    </div>
+  )
+}
+
+export default ChildComponent
+
+```
+
+**We have successfully called a method(greetParent()) in the parent component from a button in the child component by passing the method as props to the child component.**
+
+Now we will pass a Parameter when calling the parent method from the child component[we will use arrow function in the return statement].  
+Arrow Function syntax is the simplest way to pass the parameters from the child component to parent component.   
+
+**If we want to pass a parameter use Arrow function syntax**
+
+```javascript
+import React, { Component } from 'react'
+import ChildComponent from './ChildComponent'
+class ParentComponent extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         parentName: 'Parent'
+      }
+
+      this.greetParent = this.greetParent.bind(this)
+    }
+
+    greetParent(childName){
+        alert(`Hello ${this.state.parentName} from ${childName}`)
+
+    }
+    
+  render() {
+    return (
+      <div>
+        <ChildComponent greetHandler = {this.greetParent}/>
+      </div>
+    )
+  }
+}
+
+export default ParentComponent
+
+ChildComponent.js
+import React from 'react'
+
+function ChildComponent(props) {
+  return (
+    <div>
+      <button onClick={() => props.greetHandler('child')}>Greet Parent</button>
+    </div>
+  )
+}
+
+export default ChildComponent
+
+```
 
 
