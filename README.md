@@ -688,3 +688,105 @@ render(){
         )
 }
 ```
+
+
+# List Rendering
+
+when you build web applications a common scenario is to display list of items. so what we want is to repeate some html for each item in the list.  
+we need to use curly braces if we want to evaluate javascript expressions
+
+```javascript
+import React from 'react'
+
+function NameList() {
+    const names = ['Bruce', 'Clark', 'Diana']
+    const nameList = names.map((name) => {
+        return <h1>{name}</h1>
+    })
+  return (
+    <div>{nameList}</div>
+  )
+}
+
+export default NameList
+
+```
+
+# Example 2
+```javascript
+NameList.js
+
+import React from 'react'
+import Person from './Person'
+
+function NameList() {
+    //const names = ['Bruce', 'Clark', 'Diana']
+
+    const persons = [
+        {
+            id: 1,
+            name: 'Bruce',
+            age: 30,
+            skill: 'React'
+        },
+        {
+            id: 2,
+            name: 'Clark',
+            age: 28,
+            skill: 'Angular'
+        },
+        {
+            id: 3,
+            name: 'Diana',
+            age: 26,
+            skill: 'Spring'
+        },
+    ]
+
+
+    const personList = persons.map((person) => <Person person={person}/>)
+  return (
+    <div>{personList}</div>
+  )
+}
+
+export default NameList
+
+```
+
+```javascript
+Person.js
+
+import React from 'react'
+
+function Person({person}) {
+    return (
+        <div>
+
+            <h1>{person.name}</h1>
+            <h1>{person.age}</h1>
+            <h1>{person.skill}</h1>
+        </div>
+    )
+}
+
+export default Person
+
+```
+
+
+**ERROR**
+Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+react-jsx-dev-runtime.development.js:87 <br>
+Warning: Each child in a list should have a unique "key" prop.
+
+Check the render method of `NameList`. See https://reactjs.org/link/warning-keys for more information.
+    at Person (http://localhost:3000/static/js/bundle.js:955:3)
+    at NameList
+    at div
+    at App (http://localhost:3000/static/js/bundle.js:48:1)
+
+
+
+# Lists and Keys
+
