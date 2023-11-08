@@ -586,3 +586,105 @@ export default ChildComponent
 ```
 
 
+
+
+# Conditional Rendering
+
+when you are building react applications you often need to show or hide html based on certain condition luckliy Conditional Rendering works same way like conditions in java script. 
+ 
+# 4 types of Conditional Rendering
+1. if/else
+2. Element variables
+3. Ternary conditional operator
+4. Short circuit operator
+
+# if/else
+```javascript
+import react, {Component} from 'react'
+
+class UserGreeting extends Component{
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            isLoggedIn: true,
+            message: ''
+        }
+    };
+
+    handler(){
+        if(this.state.isLoggedIn){
+            this.setState({
+                message: "welcome vardhan"
+            });
+        }
+        else{
+            this.setState({
+                message: "welcome Guest"
+            });
+        }
+    }
+   
+    render(){
+        return(
+            <div>
+                <h1>{this.state.message} </h1>
+                <button onClick={()=>this.handler()}>Click Me</button>
+            </div>
+        )
+       
+    }
+
+}
+
+export default UserGreeting
+```
+Note: If/else statement don't work inside JSX
+
+# Element variables
+
+In this we will use javascript variables to store elements
+
+```javascript
+
+render(){
+        let message
+        if(this.state.isLoggedIn){
+            message = <div>welcome vardhan</div>
+        }
+        else{
+            message = <div>welcome guest</div>
+        }
+        return(
+            <div>{message}</div>//check here
+        ) 
+    }
+
+```
+
+# Ternary conditional operator
+benefit: we can use inside the JSX
+```javascript
+render(){
+
+        return(
+            this.state.isLoggedIn ?(
+            <div>Welcome Barishetti</div> 
+            ):(
+            <div>Welcome Guest</div>
+            )
+        )
+}
+
+```
+
+# Short circuit operator
+```javascript
+render(){
+
+        return(
+            this.state.isLoggedIn && <div>Welcome Barishetti</div>
+        )
+}
+```
